@@ -55,7 +55,7 @@ module.exports = {
                 user_id: profile.user_id,
                 points_delta: -points,
                 reason,
-                awarded_by: message.author.id,
+                awarded_by: message.author.username,
                 source: 'manual_command'
             });
 

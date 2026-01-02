@@ -23,7 +23,7 @@ module.exports = {
             user_id: profile.user_id,
             points_delta: 1,
             reason: '+1 haki point emoji',
-            awarded_by: user.id,
+            awarded_by: user.username,
             source: 'discord_reaction'
         });
 
@@ -55,7 +55,7 @@ module.exports = {
             user_id: profile.user_id,
             points_delta: 1,
             reason: '+1 haki point (emoji_2 removed)',
-            awarded_by: user.id,
+            awarded_by: user.username,
             source: 'discord_reaction'
         });
 

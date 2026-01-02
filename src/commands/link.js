@@ -11,7 +11,7 @@ module.exports = {
         const profileName = args[0];
         if (!profileName) {
             return message.channel.send(
-                'Please provide your profile username. Example: `!link Ian`'
+                'Please provide your profile username. Example: `!link dirtyverdy`'
             );
         }
 
@@ -20,7 +20,7 @@ module.exports = {
             .from('profiles')
             .select('user_id, username, discord_id')
             .eq('username', profileName)
-            .maybeSingle(); // returns null if no row found
+            .maybeSingle();
 
         if (fetchError) {
             console.error(fetchError);
@@ -42,7 +42,7 @@ module.exports = {
             .from('profiles')
             .update({ discord_id: discordId })
             .eq('user_id', profile.user_id)
-            .select(); // return updated row
+            .select();
 
         if (error) {
             console.error(error);

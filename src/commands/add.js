@@ -55,10 +55,9 @@ module.exports = {
                 user_id: profile.user_id,
                 points_delta: points,
                 reason,
-                awarded_by: message.author.id,
+                awarded_by: message.author.username,
                 source: 'manual_command'
             });
-
         if (insertError) {
             console.error(insertError);
             return message.reply('Points were updated but failed to log transaction.');
