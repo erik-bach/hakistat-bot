@@ -5,9 +5,8 @@ module.exports = {
     description: 'Link your Discord account to your profile',
     async execute(message, args) {
         const discordId = message.author.id;          // Permanent Discord ID
-        const discordUsername = message.author.username; // Optional, for display
+        // const discordUsername = message.author.username; // Optional, for display
 
-        // User must provide their profile username to link
         const profileName = args[0];
         if (!profileName) {
             return message.channel.send(
@@ -15,7 +14,6 @@ module.exports = {
             );
         }
 
-        // Fetch the profile by username
         const { data: profile, error: fetchError } = await supabase
             .from('profiles')
             .select('user_id, username, discord_id')

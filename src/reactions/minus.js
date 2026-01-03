@@ -1,7 +1,7 @@
 module.exports = {
     name: 'subtract Haki point',
-    plusEmoji: 'emoji_1',
-    minusEmoji: 'emoji_2',
+    plusEmoji: 'emoji_2',
+    minusEmoji: 'emoji_1',
 
     executeAdd: async (reaction, user, supabase) => {
         if (reaction.emoji.name !== module.exports.minusEmoji) return;
