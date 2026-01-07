@@ -1,23 +1,22 @@
 const supabase = require("../utils/supabase");
 
 module.exports = {
-    name: 'add-user',
+    name: 'create',
     description: 'Add a user to the database',
     async execute(message, args) {
-        let data;
-
         try {
           const profileName = args[0];
+          const discordId = message.author.id;
           if (!profileName) {
             return message.channel.send(
-              "Please provide a username to add. Example: `!add-user Ian`"
+              "Please provide a username to add. Example: `!create Ian`"
             );
           }
 
           // Fetch the profile by username
           const { data: profile, error: fetchError } = await supabase
             .from("profiles")
-            .select("user_id, username, discord_id")
+            .select("username")
             .eq("username", profileName)
             .maybeSingle(); // returns null if no row found
 
@@ -34,18 +33,38 @@ module.exports = {
             );
           }
 
+          const { data: userData, error } = await supabase
+            .from("profiles")
+            .select("discord_id")
+            .eq("discord_id", discordId)
+            .maybeSingle();
 
-          const startingHakiPoints = args[1] ? parseInt(args[1], 10) : 0;
+          if (error) {
+            console.error(error);
+            return message.channel.send(
+              "Error checking your Discord link in the database."
+            );
+          }
+
+          if (userData) {
+            return message.channel.send(
+              `A profile is already linked to this Discord account. Run !check to see your Haki points.`
+            );
+          }
+
+          const startingHakiPoints = 5;
           await supabase.from("profiles").insert({
             username: profileName,
             total_haki_points: startingHakiPoints,
+            discord_id: discordId
           });
-          
-          message.channel.send(`Successfully added user "${profileName}" with ${startingHakiPoints} Haki points.`);
 
+          message.channel.send(
+            `Successfully added user "${profileName}" with ${startingHakiPoints} Haki points.`
+          );
         } catch (err) {
             console.error(err);
-            message.channel.send('Unable to add User');
+            message.channel.send('Unable to create User');
         }
     }
 
