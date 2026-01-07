@@ -9,7 +9,7 @@ module.exports = {
           const discordId = message.author.id;
           if (!profileName) {
             return message.channel.send(
-              "Please provide a username to add. Example: `!create Ian`"
+              "Please provide a username to add. Example: `!create dirtyverdy`"
             );
           }
 
