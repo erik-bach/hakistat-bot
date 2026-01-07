@@ -5,22 +5,20 @@ module.exports = {
     description: 'Link your Discord account to your profile',
     async execute(message, args) {
         const discordId = message.author.id;          // Permanent Discord ID
-        const discordUsername = message.author.username; // Optional, for display
+        // const discordUsername = message.author.username; // Optional, for display
 
-        // User must provide their profile username to link
         const profileName = args[0];
         if (!profileName) {
             return message.channel.send(
-                'Please provide your profile username. Example: `!link Ian`'
+                'Please provide your profile username. Example: `!link dirtyverdy`'
             );
         }
 
-        // Fetch the profile by username
         const { data: profile, error: fetchError } = await supabase
             .from('profiles')
             .select('user_id, username, discord_id')
             .eq('username', profileName)
-            .maybeSingle(); // returns null if no row found
+            .maybeSingle();
 
         if (fetchError) {
             console.error(fetchError);
@@ -42,7 +40,7 @@ module.exports = {
             .from('profiles')
             .update({ discord_id: discordId })
             .eq('user_id', profile.user_id)
-            .select(); // return updated row
+            .select();
 
         if (error) {
             console.error(error);
