@@ -81,7 +81,7 @@ module.exports = {
             // Collect reactions
             const filter = (reaction, user) => {
                 return (
-                    [GUILTY_EMOJI_REACT, NOT_GUILTYNOT_GUILTY_EMOJI_REACT_EMOJI].includes(reaction.emoji.name) &&
+                    [GUILTY_EMOJI, NOT_GUILTY_EMOJI].includes(reaction.emoji.name) &&
                     user.id !== plaintiff.discord_id &&
                     user.id !== defendant.discord_id &&
                     !user.bot
@@ -90,15 +90,10 @@ module.exports = {
 
             const collector = caseMsg.createReactionCollector({ filter, time: VOTE_DURATION_MS });
 
-            // Track who has voted to prevent double voting
             const votedUsers = new Set();
             collector.on('collect', (reaction, user) => {
-                if (votedUsers.has(user.id)) {
-                    // Remove the reaction if they already voted
-                    reaction.users.remove(user.id);
-                } else {
-                    votedUsers.add(user.id);
-                }
+                if (votedUsers.has(user.id)) return; // silently ignore duplicate votes
+                votedUsers.add(user.id);
             });
 
             collector.on('end', async (collected) => {
