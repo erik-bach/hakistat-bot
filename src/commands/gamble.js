@@ -34,7 +34,7 @@ module.exports = {
             }
 
             const currentPoints = userData.total_haki_points ?? 0;
-            const isNegative = currentPoints < 0;
+            const isNegative = currentPoints <= 0;
 
             // Apply restrictions for users with negative balance
             if (isNegative && bet > NEGATIVE_BALANCE_MAX_BET) {
