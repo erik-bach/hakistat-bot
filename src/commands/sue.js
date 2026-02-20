@@ -81,7 +81,7 @@ module.exports = {
             // Collect reactions
             const filter = (reaction, user) => {
                 return (
-                    [GUILTY_EMOJI, NOT_GUILTY_EMOJI].includes(reaction.emoji.name) &&
+                    [GUILTY_EMOJI_REACT, NOT_GUILTYNOT_GUILTY_EMOJI_REACT_EMOJI].includes(reaction.emoji.name) &&
                     user.id !== plaintiff.discord_id &&
                     user.id !== defendant.discord_id &&
                     !user.bot
@@ -104,8 +104,8 @@ module.exports = {
             collector.on('end', async (collected) => {
                 activeLawsuits.delete(caseKey);
 
-                const guiltyVotes = collected.get(GUILTY_EMOJI)?.count - 1 ?? 0; // subtract bot's initial reaction
-                const notGuiltyVotes = collected.get(NOT_GUILTY_EMOJI)?.count - 1 ?? 0;
+                const guiltyVotes = collected.get(GUILTY_EMOJI_REACT)?.count - 1 ?? 0; // subtract bot's initial reaction
+                const notGuiltyVotes = collected.get(NOT_GUILTY_EMOJI_REACT)?.count - 1 ?? 0;
                 const totalVotes = guiltyVotes + notGuiltyVotes;
 
                 if (totalVotes < REQUIRED_VOTES) {
