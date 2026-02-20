@@ -72,6 +72,16 @@ module.exports = {
                     `🪙 **Coinflip — LOSS!**\n${userData.username} gambled **${bet}** points and lost. (-${bet})\nNew balance: **${newPoints}** haki points.`
                 );
             }
+                // Log transaction
+            const { error: logError } = await supabase
+                .from('haki_point_transactions')
+                .insert({
+                    user_id: profile.user_id,
+                    points_delta: won ? bet : -bet,
+                    reason: `Coinflip — ${won ? 'Win' : 'Loss'} (bet ${bet})`,
+                    awarded_by: 'hakistat bot',
+                    source: 'gamble'
+                });
 
         } catch (err) {
             console.error(err);
