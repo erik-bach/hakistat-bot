@@ -52,7 +52,7 @@ module.exports = {
 
             if (currentPoints <= 0) {
                 return message.channel.send(
-                    `⚠️ **${userData.username}** has a negative balance. They can bet up to **10** haki points per gamble with a **5%** win chance.`
+                    `⚠️ **${userData.username}** has a negative balance. They can bet up to **10** haki points per gamble.`
                 );
             }
 
