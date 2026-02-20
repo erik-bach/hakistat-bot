@@ -43,7 +43,7 @@ module.exports = {
                 );
             }
 
-            if (bet > currentPoints) {
+            if (!isNegative && bet > currentPoints) {
                 return message.channel.send(
                     `You don't have enough haki points! You only have **${currentPoints}** points.`
                 );
