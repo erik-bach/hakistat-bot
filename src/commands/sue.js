@@ -72,7 +72,7 @@ module.exports = {
                 `**Amount:** ${points} haki points\n` +
                 `**Reason:** ${reason}\n\n` +
                 `The jury has **5 minutes** to vote. At least **${REQUIRED_VOTES}** votes are required for a verdict.\n` +
-                `${GUILTY_EMOJI} — Guilty | ${NOT_GUILTY_EMOJI} — Not Guilty`
+                `${GUILTY_EMOJI_REACT} — Guilty | ${NOT_GUILTY_EMOJI_REACT} — Not Guilty`
             );
 
             await caseMsg.react(GUILTY_EMOJI_REACT);
